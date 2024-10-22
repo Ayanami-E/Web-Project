@@ -1,39 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>欧盟国家统计数据地图</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- 引入 Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-
-    <!-- 页面样式 -->
+    <meta charset="UTF-8">
+    <title>EU Data Visualization</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="icon" href="/1.png" type="image/png">
+    <!-- Custom CSS -->
     <style>
-        body { margin: 0; padding: 0; }
-        #map { width: 100%; height: 100vh; }
-        .legend {
-            background: white;
-            padding: 10px;
-            line-height: 18px;
-            color: #555;
+        /* Map container */
+        #map {
+            height: 600px;
         }
-        .legend i {
-            width: 18px;
-            height: 18px;
-            float: left;
-            margin-right: 8px;
-            opacity: 0.7;
+        /* Controls */
+        .data-control, .custom-control {
+            background: white;
+            padding: 5px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        /* Positioning controls */
+        #controls-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            max-height: 90vh;
+            overflow-y: auto;
+            width: 300px;
+        }
+        #controls-container select, #controls-container button {
+            margin: 5px 0;
+            width: 100%;
+        }
+        /* Popup content */
+        .leaflet-popup-content {
+            min-width: 200px;
+        }
+        /* Drag-and-drop area */
+        #drag-and-drop-area {
+            border: 2px dashed #ccc;
+            padding: 10px;
+            text-align: center;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        #drag-and-drop-area.dragover {
+            background-color: #f0f0f0;
         }
     </style>
 </head>
 <body>
 
+    <!-- Map container -->
     <div id="map"></div>
 
-    <!-- 引入 Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <!-- 引入主脚本 -->
+    <!-- Controls Container -->
+    <div id="controls-container">
+        <!-- Data Control will be added here by the script -->
+        <!-- Comparison Control -->
+        <div class="custom-control">
+            <h3>Country Comparison</h3>
+            <select id="country-1">
+                <option value="">Select Country 1</option>
+                <!-- Options will be populated by script -->
+            </select>
+            <select id="country-2">
+                <option value="">Select Country 2</option>
+                <!-- Options will be populated by script -->
+            </select>
+            <select id="comparison-data-item">
+                <option value="">Select Data Item</option>
+                <option value="GDP">GDP</option>
+                <option value="Population">Population</option>
+                <option value="CPI">CPI</option>
+                <option value="Gini Coefficient">Gini Coefficient</option>
+            </select>
+            <button id="compare-button">Compare</button>
+        </div>
+
+        <!-- Country Data Operation Control -->
+        <div class="custom-control">
+            <h3>Country Data Operation</h3>
+            <select id="operation-country">
+                <option value="">Select Country</option>
+                <!-- Options will be populated by script -->
+            </select>
+            <select id="country-data-item-1">
+                <option value="">Select Data Item 1</option>
+                <option value="GDP">GDP</option>
+                <option value="Population">Population</option>
+                <option value="CPI">CPI</option>
+                <option value="Gini Coefficient">Gini Coefficient</option>
+            </select>
+            <select id="country-operation">
+                <option value="">Select Operation</option>
+                <option value="add">+</option>
+                <option value="subtract">-</option>
+                <option value="multiply">×</option>
+                <option value="divide">÷</option>
+            </select>
+            <select id="country-data-item-2">
+                <option value="">Select Data Item 2</option>
+                <option value="GDP">GDP</option>
+                <option value="Population">Population</option>
+                <option value="CPI">CPI</option>
+                <option value="Gini Coefficient">Gini Coefficient</option>
+            </select>
+            <button id="calculate-country-operation-button">Calculate</button>
+        </div>
+
+        <!-- Drag-and-Drop Area -->
+        <div id="drag-and-drop-area">
+            Drag and drop a JSON file here to upload data.
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- Leaflet Image plugin -->
+    <script src="https://cdn.jsdelivr.net/gh/mapbox/leaflet-image@gh-pages/leaflet-image.js"></script>
+    <!-- Your script.js -->
     <script src="script.js"></script>
 </body>
 </html>

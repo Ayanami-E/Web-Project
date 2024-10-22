@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Country Data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Responsive Meta Tag -->
+    <link rel="icon" href="/1.png" type="image/png">
+    <style>
+        /* Basic styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #controls {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #controls button {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        #charts {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 10px auto;
+            position: relative;
+        }
+        .chart-container canvas {
+            width: 100%;
+            height: auto;
+        }
+        #back-button {
+            margin-right: 10px;
+        }
+        /* Editable table */
+        .data-table {
+            display: none;
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .data-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #ccc;
+            padding: 5px;
+            text-align: center;
+        }
+        /* Drag and drop area */
+        #drag-drop-area {
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+        }
+        #drag-drop-area.dragover {
+            border-color: #000;
+            color: #000;
+        }
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            .chart-container {
+                width: 100%;
+            }
+            .chart-container canvas {
+                height: 300px;
+            }
+        }
+    </style>
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="controls">
+        <button id="back-button">Back to Map</button>
+        <button id="edit-button">Edit Data</button>
+        <button id="download-all-button">Download All Charts</button>
+    </div>
+    <h1 id="country-name"></h1>
+
+    <!-- Drag and Drop Area -->
+    <div id="drag-drop-area">
+        <p>Drag and drop your JSON data file here to update the charts</p>
+    </div>
+
+    <div id="charts">
+        <div class="chart-container" id="gdp-container">
+            <canvas id="gdp-chart"></canvas>
+            <button class="download-button" data-chart-id="gdp-chart">Download GDP Chart</button>
+            <div class="data-table" id="gdp-table"></div>
+        </div>
+        <div class="chart-container" id="gini-container">
+            <canvas id="gini-chart"></canvas>
+            <button class="download-button" data-chart-id="gini-chart">Download Gini Chart</button>
+            <div class="data-table" id="gini-table"></div>
+        </div>
+        <div class="chart-container" id="cpi-container">
+            <canvas id="cpi-chart"></canvas>
+            <button class="download-button" data-chart-id="cpi-chart">Download CPI Chart</button>
+            <div class="data-table" id="cpi-table"></div>
+        </div>
+        <div class="chart-container" id="population-container">
+            <canvas id="population-chart"></canvas>
+            <button class="download-button" data-chart-id="population-chart">Download Population Chart</button>
+            <div class="data-table" id="population-table"></div>
+        </div>
+    </div>
+    <script src="country.js"></script>
+</body>
+</html>
